@@ -20,6 +20,7 @@ type HomePage = {
 };
 
 type News = {
+  [x: string]: any;
   id: number;
   title: string;
   content: string;
@@ -62,6 +63,27 @@ const homePageData: HomePage = {
     }
   ],
 };
+
+
+// CREATE news
+const newsPost:News[]=[];
+app.post("/news", async (req: Request, res: Response) => {
+  try {
+    const newnews: News = {
+      title: req.body.title,
+      id: newsPost.length + 1,
+      content: req.body.content,
+      imageURL: req.body.imageURL
+    };
+
+    newsPost.push(newnews);
+    console.log(newsPost);
+
+    res.send(newsPost);
+  } catch (e) {
+    console.error(e);
+  }
+});
 
 app.get("/artical", (req: Request, res: Response) => {
   console.log("CALLED artical data");
